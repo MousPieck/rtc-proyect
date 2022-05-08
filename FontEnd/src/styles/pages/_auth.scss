@@ -1,0 +1,126 @@
+@import "../base/colors";
+
+.auth_main {
+	background-color: $Principale;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.auth__container {
+		background-color: $Terziario;
+		position: absolute;
+		width: 60%;
+		height: 70%;
+		display: flex;
+		text-align: center;
+		justify-content: space-between;
+		flex-direction: row;
+		border-radius: 5px;
+		div {
+			flex-grow: 1;
+			flex-basis: 0;
+		}
+
+		h3 {
+			font-weight: bold;
+		}
+		.auth__imagine {
+			width: 50%;
+			border-radius: 4px 0 0 4px;
+			object-fit: cover;
+		}
+
+		.auth__container-f {
+			display: flex;
+			align-items: center;
+			overflow: auto;
+			justify-content: center;
+			align-items: center;
+			padding: 0vh 1vw 0vh 1vw;
+			form {
+				.home_link {
+					display: flex;
+					justify-content: flex-start;
+					width: 85%;
+					a {
+						text-decoration: none;
+					}
+				}
+
+				width: 50vh;
+
+				display: flex;
+				flex-direction: column;
+
+				justify-content: center;
+				label {
+					display: flex;
+					transition: color 0.7s ease-in-out;
+					justify-content: flex-start;
+					margin-top: 1.5vh;
+					&:hover {
+						color: $Secondario;
+					}
+				}
+				input {
+					border: none;
+					border-bottom: 1px solid #0d96c436;
+					transition: border-color 0.7s ease-in-out;
+					text-align: center;
+
+					&:focus {
+						outline: none;
+						border-color: $Secondario;
+					}
+				}
+
+				.auth__btns {
+					display: flex;
+					flex-direction: column;
+					button {
+						margin-top: 2vh;
+						font-size: 1.5rem;
+						color: $Terziario;
+						margin-bottom: 2vh;
+						background-color: lighten(
+							$color: $Principale,
+							$amount: 30
+						);
+						justify-content: center;
+						&:hover {
+							background-color: lighten(
+								$color: $Principale,
+								$amount: 30
+							);
+							color: $Terziario;
+							border-color: lighten(
+								$color: $Principale,
+								$amount: 60
+							);
+						}
+					}
+				}
+
+				.auth__error {
+					color: red;
+				}
+			}
+		}
+	}
+	@media (max-width: 780px) {
+		.auth__container {
+			width: 85%;
+			height: 75%;
+			.auth__imagine {
+				display: none;
+			}
+
+			.auth__container-f {
+				form {
+					align-items: center;
+				}
+			}
+		}
+	}
+}

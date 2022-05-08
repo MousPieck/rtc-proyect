@@ -1,0 +1,70 @@
+@import "../base/colors";
+.main_header {
+	width: 101vw;
+	height: 100vh;
+	// background: linear-gradient(rgba(0, 0, 0, 0.596), rgba(0, 0, 0, 0.712)),
+	// 	url(../../../public/assets/img/principale.jpg);
+	// background-size: cover;
+	// background-position: center center;
+	// background-repeat: no-repeat;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center space-between;
+	align-items: center;
+	color: $Terziario;
+	margin: auto;
+	video {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.main_header__capa {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+
+		background: linear-gradient(rgba(0, 0, 0, 0.596), rgba(0, 0, 0, 0.712));
+		mix-blend-mode: overlay;
+	}
+	.main_container_header {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		text-align: center;
+		justify-content: center;
+		height: 80vh;
+		position: relative;
+		z-index: 2;
+		h1 {
+			margin-top: 0;
+			font-size: 12vh;
+			font-weight: bold;
+			margin-bottom: 1.5vh;
+
+			span {
+				color: $Secondario;
+			}
+		}
+		div {
+			h3 {
+				color: $Grigio;
+			}
+		}
+	}
+}
+.main_ricette_bar {
+	display: flex;
+	align-items: center;
+	width: 100vw;
+	height: 10vh;
+	background-color: darken($color: $Secondario, $amount: 20);
+	justify-content: center;
+	input {
+		height: 5vh;
+		width: 30vw;
+		font-size: 1.5vw;
+		color: black;
+	}
+}

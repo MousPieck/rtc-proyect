@@ -1,0 +1,56 @@
+footer {
+	display: flex;
+	flex-direction: column;
+	color: $Terziario;
+	// padding: 2vh 2vw 2vh 2vw;
+	div {
+		display: flex;
+	}
+	.top_footer {
+		background-color: $Secondario;
+		justify-content: space-evenly;
+		height: 50%;
+		width: 100vw;
+		padding: 1vh 2vw 1vh 2vw;
+		.top_primo {
+		}
+		.top_mezzo {
+		}
+		.top_ult {
+		}
+	}
+	.sub_footer {
+		height: 50%;
+		width: 100vw;
+		padding: 1vh 2vw 1vh 2vw;
+		background-color: $Principale;
+		justify-content: space-evenly;
+		div {
+			display: flex;
+		}
+		.sub_primo {
+		}
+		.sub_mezzo {
+			justify-content: space-evenly;
+			width: 40vw;
+			div {
+				flex-direction: column;
+				align-items: center;
+				i {
+					font-size: 2.5vw;
+				}
+				p {
+				}
+			}
+		}
+		.sub_ult {
+		}
+	}
+	.ult_footer {
+		justify-content: center;
+		background-color: darken($color: $Principale, $amount: 40);
+		span {
+			text-align: center;
+		}
+	}
+}

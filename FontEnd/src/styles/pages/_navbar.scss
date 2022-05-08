@@ -1,0 +1,40 @@
+@import "../base/colors";
+._navbar {
+	display: flex;
+	align-items: center;
+	height: 12vh;
+	justify-content: space-between;
+	width: 100%;
+	background-color: transparent;
+	position: relative;
+	z-index: 2;
+	color: $Terziario;
+	background-size: cover;
+	margin: auto;
+	padding: 3.5vh 7vw 3.5vh 7vw;
+	// box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+	// 	rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+	// 	rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+	h2 {
+		cursor: pointer;
+		font-weight: bold;
+		font-size: 6vh;
+		span {
+			color: $Secondario;
+		}
+	}
+	.autenticazione_navbar {
+		flex-direction: row;
+		display: flex;
+		justify-content: space-between;
+		.nome_navbar {
+			margin-right: 2vw;
+			cursor: pointer;
+		}
+		i {
+			font-size: 1.5em;
+			cursor: pointer;
+		}
+	}
+}

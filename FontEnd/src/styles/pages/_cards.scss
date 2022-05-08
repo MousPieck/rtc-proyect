@@ -1,0 +1,28 @@
+.p-card {
+	// height: 60vh;
+	width: 23vw;
+	border-radius: 2rem;
+	padding: 0.5rem;
+	.p-card-header {
+		img {
+			height: 25vh;
+			border-radius: 1rem 1rem 0 0;
+		}
+	}
+	.p-card-body {
+		.p-card-title {
+			text-align: center;
+		}
+		.p-card-content {
+			text-align: center;
+			font-size: 1vw;
+			overflow-y: auto;
+			word-break: break-all;
+		}
+		.p-card-footer {
+			display: flex;
+			justify-content: center;
+			column-gap: 1rem;
+		}
+	}
+}

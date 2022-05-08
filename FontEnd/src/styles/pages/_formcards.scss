@@ -1,0 +1,37 @@
+@import "../base/colors";
+.formContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	height: 70vh;
+	.form_cards {
+		display: flex;
+		width: 50%;
+		row-gap: 2vh;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		input {
+			width: 25vw;
+			text-align: center;
+			font-size: 1.2vw;
+		}
+		textarea {
+			width: 35vw;
+			height: 30vh;
+			font-size: 1vw;
+		}
+		.form_buttons {
+			display: flex;
+			justify-content: space-between;
+			width: 25vw;
+			button {
+				width: 7vw;
+				font-size: 1vw;
+			}
+		}
+	}
+	.form_card {
+		width: 50%;
+	}
+}
