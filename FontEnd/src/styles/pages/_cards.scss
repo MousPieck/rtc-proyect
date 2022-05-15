@@ -1,15 +1,20 @@
 .p-card {
 	// height: 60vh;
-	width: 23vw;
+	width: 60vw;
+	height: 48vh;
+	display: flex;
 	border-radius: 2rem;
+	flex-direction: row;
 	padding: 0.5rem;
 	.p-card-header {
 		img {
-			height: 25vh;
-			border-radius: 1rem 1rem 0 0;
+			height: 100%;
+			width: 27vw;
+			border-radius: 0.5rem 1rem 1rem 0.5rem;
 		}
 	}
 	.p-card-body {
+		width: 100%;
 		.p-card-title {
 			text-align: center;
 		}
@@ -18,6 +23,7 @@
 			font-size: 1vw;
 			overflow-y: auto;
 			word-break: break-all;
+			height: 30vh;
 		}
 		.p-card-footer {
 			display: flex;

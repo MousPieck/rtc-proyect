@@ -6,8 +6,6 @@ import {
   utentePut
 } from '../controllers/utenti';
 import { checktoken } from '../validation/validations';
-// import { check } from 'express-validator';
-// import { validarCampos } from '../middlewares/validarcampos';
 
 const router = Router();
 

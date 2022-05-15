@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import authAction from "./actions/auth.action";
-import principaleAction from "./actions/principale.action";
-import ricetteAction from "./actions/ricette.action";
+import authAction from "./slices/auth.slice";
+import principaleAction from "./slices/principale.slice";
+import ricetteAction from "./slices/ricette.slice";
 
 const rootReducers = combineReducers({
 	auth: authAction,

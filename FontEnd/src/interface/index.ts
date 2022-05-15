@@ -18,11 +18,17 @@ export interface IDataForm {
 
 export interface IEliminareCard {
 	token: string;
-	id: string | undefined;
+	_id: string;
+}
+export interface IModificareCard {
+	img: File;
+	titolo: string;
+	istruzioni: string;
+	_id: string;
 }
 
-// export interface IDataForm {}
 export interface ICardsGet {
+	modificare: IModificareCard;
 	totale: number;
 
 	prodotti: [
@@ -37,11 +43,16 @@ export interface ICardsGet {
 			autore: {
 				_id: string;
 				nome: string;
-				createdAt: string;
-				updateAt: string;
 			};
+			createdAt: string;
+			updateAt: string;
 		},
 	];
+}
+export interface ICardModificareReducer {
+	_id: string;
+	titolo: string;
+	istruzioni: string;
 }
 export interface IAuthData {
 	msg: string;

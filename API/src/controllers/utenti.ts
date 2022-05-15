@@ -15,6 +15,9 @@ const utenteGet = async (_req: Request, res: Response, next: NextFunction) => {
     });
   } catch (error) {
     console.log(error);
+    res.status(404).json({
+      error
+    });
   }
 };
 
@@ -42,6 +45,9 @@ const utenteGetID = async (
     });
   } catch (error) {
     console.log(error);
+    res.status(404).json({
+      error
+    });
   }
 };
 
@@ -58,8 +64,9 @@ const utentePut = async (
     });
   } catch (error) {
     console.log(error);
-    res.json({
-      Atenzione: `non è stato possibile aggiornare`
+    res.status(404).json({
+      Atenzione: `non è stato possibile aggiornare`,
+      error
     });
   }
 };
@@ -89,6 +96,9 @@ const utenteDelete = async (
     });
   } catch (error) {
     console.log(error);
+    res.status(404).json({
+      error
+    });
   }
 };
 

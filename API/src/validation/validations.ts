@@ -1,11 +1,11 @@
 import { NextFunction, request, response } from 'express';
-import { check } from 'express-validator';
+import { body, header, param } from 'express-validator';
 import { validareJWT } from '../middlewares/validare-jwt';
 import { validazioneCampi } from '../middlewares/validations';
 
 const checkLogin = [
-  check('email').notEmpty().isEmail().withMessage('non è un email valido'),
-  check('password')
+  body('email').notEmpty().isEmail().withMessage('non è un email valido'),
+  body('password')
     .notEmpty()
     .isLength({ min: 6 })
     .withMessage('la password deve avere almeno 6 caratteri'),
@@ -15,9 +15,9 @@ const checkLogin = [
 ];
 
 const checkSignUp = [
-  check('nome').notEmpty().withMessage('il nome non è valido'),
-  check('email').notEmpty().isEmail().withMessage('non è un email valido'),
-  check('password')
+  body('nome').notEmpty().withMessage('il nome non è valido'),
+  body('email').notEmpty().isEmail().withMessage('non è un email valido'),
+  body('password')
     .notEmpty()
     .isLength({ min: 6 })
     .withMessage('la password deve avere almeno 6 caratteri'),
@@ -32,9 +32,43 @@ const checkUtenteId = [
     validareJWT(req, res, next);
   }
 ];
-const checkProdottiId = [
+const checkProdottiGetId = [
+  header('x-token').isJWT().withMessage(''),
+
   (req = request, res = response, next: NextFunction) => {
-    validazioneCampi(req, res, next);
+    validareJWT(req, res, next);
+  }
+];
+const checkProdottiPostId = [
+  header('x-token').isJWT().withMessage(''),
+
+  body('titolo').notEmpty().withMessage(''),
+  body('istruzioni').notEmpty().withMessage(''),
+
+  (req = request, res = response, next: NextFunction) => {
+    validareJWT(req, res, next);
+  }
+];
+
+const checkProdottiModificareId = [
+  header('x-token').isJWT().withMessage(''),
+  param('id').isMongoId().withMessage(''),
+
+  body('titolo').notEmpty().withMessage(''),
+  body('istruzioni').notEmpty().withMessage(''),
+
+  (req = request, res = response, next: NextFunction) => {
+    validareJWT(req, res, next);
+  }
+];
+
+const checkProdottiEliminareId = [
+  header('x-token').isJWT().withMessage(''),
+
+  param('id').isMongoId().withMessage(''),
+
+  (req = request, res = response, next: NextFunction) => {
+    validareJWT(req, res, next);
   }
 ];
 
@@ -44,4 +78,13 @@ const checktoken = [
   }
 ];
 
-export { checkLogin, checkSignUp, checkUtenteId, checktoken, checkProdottiId };
+export {
+  checkLogin,
+  checkSignUp,
+  checkUtenteId,
+  checktoken,
+  checkProdottiGetId,
+  checkProdottiEliminareId,
+  checkProdottiModificareId,
+  checkProdottiPostId
+};

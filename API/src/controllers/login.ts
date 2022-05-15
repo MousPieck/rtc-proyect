@@ -34,6 +34,9 @@ const loginPost = async (
     }
   } catch (error) {
     console.log(error);
+    res.status(404).json({
+      error
+    });
   }
 };
 
@@ -59,6 +62,9 @@ const signUpPost = async (
     });
   } catch (error) {
     console.log(error);
+    res.status(404).json({
+      error
+    });
   }
 };
 export { loginPost, signUpPost };

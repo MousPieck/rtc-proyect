@@ -1,6 +1,7 @@
 .main_Body {
 	display: flex;
 	flex-direction: column;
+
 	.body__1,
 	.body__2 {
 		display: flex;
@@ -22,30 +23,7 @@
 		p {
 		}
 	}
-	.p-card {
-		display: flex;
 
-		width: 60vw;
-		min-height: 95%;
-		.p-card-header {
-			img {
-				height: 100%;
-				width: 27vw;
-				border-radius: 0.5rem 1rem 1rem 0.5rem;
-			}
-		}
-		.p-card-body {
-			width: 100%;
-
-			.p-card-title {
-			}
-			.p-card-subtitle {
-			}
-			.p-card-content {
-				// text-align: justify;
-			}
-		}
-	}
 	.body__1 {
 	}
 	.body__2 {

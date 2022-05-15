@@ -1,14 +1,12 @@
 import { useEffect } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { controllareToken, logout } from "../store/actions/auth.action";
-import { RootState, store } from "../store/store";
 import { useSelector } from "react-redux";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { controllareToken, logout } from "../store/slices/auth.slice";
+import { RootState, store } from "../store/store";
 
 export const PrivateRouters = ({ children }: any) => {
 	const { pathname } = useLocation();
-	const { token }: { token: string } = useSelector(
-		(state: RootState) => state.auth.data,
-	);
+	const token = useSelector((state: RootState) => state.auth.data.token);
 	const navigate = useNavigate();
 	useEffect(() => {
 		store.dispatch(controllareToken(token));

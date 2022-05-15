@@ -1,12 +1,10 @@
 import cloudinary from 'cloudinary';
 import { NextFunction, Request, Response } from 'express';
 import fs from 'fs-extra';
-
 import { IUTente } from '../interface/model-utenti';
 import { IUProdotti, Recette } from '../interface/prodotti-controllers';
 import { Utente } from '../models/usuarios';
 import { Prodotti } from './../models/produtti';
-import jwt from 'jsonwebtoken';
 
 cloudinary.v2.config({
   cloud_name: 'dxwmczjzj',
@@ -30,6 +28,9 @@ const prodottiGet = async (
     });
   } catch (error) {
     console.log(error);
+    res.status(404).json({
+      error
+    });
   }
 };
 
@@ -49,6 +50,9 @@ const prodottiGetId = async (
     });
   } catch (error) {
     console.log(error);
+    res.status(404).json({
+      error
+    });
   }
 };
 
@@ -58,8 +62,6 @@ const prodottiPost = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    console.log(req.file);
-    console.log(req.body);
     const { path }: any = req.file;
     const immagine: cloudinary.UploadApiResponse =
       await cloudinary.v2.uploader.upload(path);
@@ -93,6 +95,9 @@ const prodottiPost = async (
     });
   } catch (error) {
     console.log(error);
+    res.status(404).json({
+      error
+    });
   }
 };
 
@@ -130,6 +135,9 @@ const prodottiPut = async (
     });
   } catch (error) {
     console.log(error);
+    res.status(404).json({
+      error
+    });
   }
 };
 
@@ -150,6 +158,9 @@ const prodottiDeleteId = async (
     });
   } catch (error) {
     console.log(error);
+    res.status(404).json({
+      error
+    });
   }
 };
 
