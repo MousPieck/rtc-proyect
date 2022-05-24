@@ -1,8 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import { NewCard } from "../components/NewCard/NewCard";
-import { Navbar } from "../components/NavBar/Navbar";
-import { NotFoundPage } from "./NotFoundPage";
-import { CardList } from "../components/CardList/CardList";
+import { CardList } from "../../components/CardList/CardList";
+import { Navbar } from "../../components/NavBar/Navbar";
+import { NewCard } from "../../components/NewCard/NewCard";
+import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
+import "./UtentePage.scss";
+
 export const UtentePage = () => {
 	return (
 		<>

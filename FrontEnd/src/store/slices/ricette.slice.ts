@@ -1,16 +1,17 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { store } from "../store";
 import { utenteAxios } from "../../helpers/axiosConfig";
 import {
-	IDataForm,
 	ICardsGet,
+	IDatiForm,
 	IEliminareCard,
 	IModificareCard,
+	TStati,
 } from "../../interface";
-import { store } from "../store";
 
 export const ricetteCreate = createAsyncThunk(
 	"[RCT/Create]",
-	async (data: IDataForm, { rejectWithValue }) => {
+	async (data: IDatiForm, { rejectWithValue }) => {
 		const formData = new FormData();
 		const { token, img, titolo, istruzioni } = data;
 		formData.append("file", img);
@@ -19,7 +20,7 @@ export const ricetteCreate = createAsyncThunk(
 
 		if (token) {
 			try {
-				const response = await utenteAxios.post(
+				const risposta = await utenteAxios.post(
 					"/prodotti/id",
 					formData,
 					{
@@ -30,7 +31,7 @@ export const ricetteCreate = createAsyncThunk(
 					},
 				);
 				store.dispatch(caricareRicetteId(token));
-				return response.data;
+				return risposta.data;
 			} catch (error) {
 				return rejectWithValue(error);
 			}
@@ -39,9 +40,9 @@ export const ricetteCreate = createAsyncThunk(
 );
 export const caricareRicette = createAsyncThunk("[RCT/SCaricare]", async () => {
 	try {
-		const response = await utenteAxios("/prodotti/");
+		const risposta = await utenteAxios("/prodotti/");
 
-		return response.data;
+		return risposta.data;
 	} catch (error) {
 		return error;
 	}
@@ -51,12 +52,12 @@ export const caricareRicetteId = createAsyncThunk(
 	async (token: string, { rejectWithValue }) => {
 		if (token) {
 			try {
-				const response = await utenteAxios.get("/prodotti/id", {
+				const risposta = await utenteAxios.get("/prodotti/id", {
 					headers: {
 						"x-token": token,
 					},
 				});
-				return response.data;
+				return risposta.data;
 			} catch (error) {
 				return rejectWithValue(error);
 			}
@@ -65,17 +66,17 @@ export const caricareRicetteId = createAsyncThunk(
 );
 export const modificareRicette = createAsyncThunk(
 	"[RCT/Modificare]",
-	async (data: IDataForm, { rejectWithValue }) => {
-		const { token, _id, img, titolo, istruzioni } = data;
+	async (data: IDatiForm, { rejectWithValue }) => {
+		const { token } = data;
 		const formData = new FormData();
 
-		formData.append("file", img);
-		formData.append("titolo", titolo);
-		formData.append("istruzioni", istruzioni);
 		if (token) {
+			formData.append("file", data.img);
+			formData.append("titolo", data.titolo);
+			formData.append("istruzioni", data.istruzioni);
 			try {
-				const response = await utenteAxios.put(
-					`/prodotti/${_id}`,
+				const risposta = await utenteAxios.put(
+					`/prodotti/${data._id}`,
 					formData,
 					{
 						headers: {
@@ -84,28 +85,31 @@ export const modificareRicette = createAsyncThunk(
 					},
 				);
 				store.dispatch(caricareRicetteId(token));
-				return response.data;
+				return risposta.data;
 			} catch (error) {
 				return rejectWithValue(error);
 			}
 		}
 	},
 );
+
 export const eliminareRicette = createAsyncThunk(
 	"[RCT/Eliminare]",
 	async (data: IEliminareCard, { rejectWithValue }) => {
-		const { token, _id } = data;
+		const { token } = data;
 		if (token) {
 			try {
-				const response = await utenteAxios.delete(`/prodotti/${_id}`, {
-					headers: {
-						"x-token": token,
+				const risposta = await utenteAxios.delete(
+					`/prodotti/${data._id}`,
+					{
+						headers: {
+							"x-token": token,
+						},
 					},
-				});
+				);
 
-				// store.dispatch(caricareRicetteId(token));
-				store.dispatch(eliminare(_id));
-				return response.data;
+				store.dispatch(elimina(data));
+				return risposta.data;
 			} catch (error) {
 				return rejectWithValue(error);
 			}
@@ -114,23 +118,31 @@ export const eliminareRicette = createAsyncThunk(
 );
 
 const initial = {
-	stato: "inattivo",
+	stato: "inattivo" as TStati,
 	principale: {} as ICardsGet,
 	utente: {} as ICardsGet,
 	errori: [] as object[],
 };
-const ricetteAction = createSlice({
+
+const ricetteSlice = createSlice({
 	name: "[RCT]",
 	initialState: initial,
 	reducers: {
-		modificare: (state, action) => {
+		modifica: (state, action: PayloadAction<IModificareCard>) => {
 			state.utente.modificare = action.payload;
 		},
-		eliminare: (state, action) => {
+		elimina: (state, action: PayloadAction<IEliminareCard>) => {
+			type TProdotti = typeof state.utente.prodotti;
+
 			const restanti = state.utente.prodotti.filter(
-				(prodotti) => prodotti._id !== action.payload,
+				(prodotti) => prodotti._id !== action.payload._id,
 			);
-			console.log(restanti);
+
+			state.stato = "attivo";
+			state.utente.prodotti = restanti as TProdotti;
+		},
+		stato: (state, action: PayloadAction<TStati>) => {
+			state.stato = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
@@ -138,16 +150,20 @@ const ricetteAction = createSlice({
 			.addCase(
 				caricareRicetteId.fulfilled,
 				(state, action: PayloadAction<ICardsGet>) => {
-					state.stato = "attivo";
+					state.stato = "inattivo";
 					state.utente = action.payload;
 					state.utente.modificare = {} as IModificareCard;
 				},
 			)
+			.addCase(modificareRicette.fulfilled, (state) => {
+				state.stato = "attivo";
+				state.utente.modificare = {} as IModificareCard;
+			})
 			.addCase(caricareRicette.fulfilled, (state, action) => {
 				state.stato = "attivo";
 				state.principale = action.payload;
 			});
 	},
 });
-export const { modificare, eliminare } = ricetteAction.actions;
-export default ricetteAction.reducer;
+export const { modifica, elimina, stato } = ricetteSlice.actions;
+export default ricetteSlice.reducer;

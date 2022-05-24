@@ -1,24 +1,21 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import authAction from "./slices/auth.slice";
-import principaleAction from "./slices/principale.slice";
-import ricetteAction from "./slices/ricette.slice";
+import authSlice from "./slices/auth.slice";
+import ricetteSlice from "./slices/ricette.slice";
 
-const rootReducers = combineReducers({
-	auth: authAction,
-	home: principaleAction,
-	ricette: ricetteAction,
-});
 const persistConfig = {
 	key: "root",
 	storage,
 };
+const rootReducers = combineReducers({
+	auth: persistReducer(persistConfig, authSlice),
+	ricette: ricetteSlice,
+});
 
-const persistedReducer = persistReducer(persistConfig, rootReducers);
 export type RootState = ReturnType<typeof rootReducers>;
 export const store = configureStore({
-	reducer: persistedReducer,
+	reducer: rootReducers,
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: {

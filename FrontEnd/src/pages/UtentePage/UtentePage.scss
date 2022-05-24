@@ -1,5 +1,3 @@
-@import "../base/colors";
-
 .utente_main {
 	display: flex;
 	flex-direction: column;
@@ -8,15 +6,16 @@
 	position: relative;
 
 	.utente_navbar {
-		background-color: $Principale;
+		background-color: var(--principale);
 	}
 	.utente_cards_user {
-		margin-top: 12vh;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		row-gap: 2.5vh;
+		width: 100%;
+		height: 100%;
 	}
 	.utente_container {
 		display: flex;

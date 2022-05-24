@@ -1,5 +1,5 @@
 import Card from "../CardList/Card/Card";
-
+import "./BodyPrincipale.scss";
 export const BodyPrincipale = () => {
 	return (
 		<div className="main_Body">

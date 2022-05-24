@@ -1,4 +1,3 @@
-@import "../base/colors";
 ._navbar {
 	display: flex;
 	align-items: center;
@@ -8,7 +7,7 @@
 	background-color: transparent;
 	position: relative;
 	z-index: 2;
-	color: $Terziario;
+	color: var(--terziario);
 	background-size: cover;
 	margin: auto;
 	padding: 3.5vh 7vw 3.5vh 7vw;
@@ -21,7 +20,7 @@
 		font-weight: bold;
 		font-size: 6vh;
 		span {
-			color: $Secondario;
+			color: var(--secondario);
 		}
 	}
 	.autenticazione_navbar {
@@ -33,7 +32,7 @@
 			cursor: pointer;
 		}
 		i {
-			font-size: 1.5em;
+			font-size: 2em;
 			cursor: pointer;
 		}
 	}

@@ -1,11 +1,10 @@
 import axios from "axios";
-import { urls } from "./constants";
 
 const serverAxios = axios.create({
-	baseURL: urls.SERVER,
+	baseURL: process.env.REACT_APP_API_URL,
 	headers: { "Content-Type": "multipart/form-data" },
 });
 const utenteAxios = axios.create({
-	baseURL: urls.SERVER,
+	baseURL: process.env.REACT_APP_API_URL,
 });
 export { serverAxios, utenteAxios };

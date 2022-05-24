@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { utenteAxios } from "../../helpers/axiosConfig";
-import { IAuthData, IDataUser } from "../../interface";
+import { IAuthDati, IDatiUtenti } from "../../interface";
 
-export const logIn = createAsyncThunk(
+export const signIn = createAsyncThunk(
 	"[AUTH/login]",
-	async (data: IDataUser, { rejectWithValue }) => {
+	async (data: IDatiUtenti, { rejectWithValue }) => {
 		try {
 			const response = await utenteAxios.post("/login", data);
 			return response.data;
@@ -33,9 +33,9 @@ export const controllareToken = createAsyncThunk(
 	},
 );
 
-export const singUp = createAsyncThunk(
+export const signUp = createAsyncThunk(
 	"[AUTH/singUp]",
-	async (data: IDataUser, { rejectWithValue }) => {
+	async (data: IDatiUtenti, { rejectWithValue }) => {
 		try {
 			const response = await utenteAxios.post("/signup", data);
 
@@ -46,15 +46,19 @@ export const singUp = createAsyncThunk(
 	},
 );
 
-const initial = {
+const valoreIniziale = {
 	stato: "inattivo",
-	data: {} as IAuthData,
+	register: false,
+	data: {} as IAuthDati,
 	errori: [] as object[],
 };
 const authSlice = createSlice({
 	name: "[AUTH]",
-	initialState: initial,
+	initialState: valoreIniziale,
 	reducers: {
+		statoRegister: (state, action: PayloadAction<boolean>) => {
+			state.register = action.payload;
+		},
 		logout: (state) => {
 			state.stato = "inattivo";
 			state.data = {} as any;
@@ -63,15 +67,26 @@ const authSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(
-				logIn.fulfilled,
-				(state, action: PayloadAction<IAuthData>) => {
+				signIn.fulfilled,
+				(state, action: PayloadAction<IAuthDati>) => {
 					state.stato = "attivo";
 					state.data = action.payload;
 				},
 			)
-			.addCase(singUp.fulfilled, (state, action) => {
+			.addCase(signIn.rejected, (state, action) => {
+				state.stato = "inattivo";
+				state.data = {} as any;
+				state.errori.push(action.error);
+			})
+			.addCase(signUp.fulfilled, (state, action) => {
 				state.stato = "attivo";
 				state.data = action.payload;
+				state.register = true;
+			})
+			.addCase(signUp.rejected, (state, action) => {
+				state.stato = "inattivo";
+				state.data = {} as any;
+				state.errori.push(action.error);
 			})
 
 			.addCase(controllareToken.rejected, (state, action) => {
@@ -81,6 +96,6 @@ const authSlice = createSlice({
 			});
 	},
 });
-export const { logout } = authSlice.actions;
+export const { logout, statoRegister } = authSlice.actions;
 
 export default authSlice.reducer;

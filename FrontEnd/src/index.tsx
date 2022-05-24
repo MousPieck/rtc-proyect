@@ -5,10 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { App } from "./App";
 import { store } from "./store/store";
 import "./styles/index.scss";
-import "primeicons/primeicons.css";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.css";
-import "primeflex/primeflex.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 let persistor = persistStore(store);
 

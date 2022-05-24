@@ -1,6 +1,7 @@
 .main_Body {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 
 	.body__1,
 	.body__2 {
@@ -10,6 +11,7 @@
 		padding-left: 0.5vw;
 		padding-right: 0.5vw;
 		margin: auto;
+		width: 100%;
 	}
 	.body_cointainer_1,
 	.body_cointainer_2 {
@@ -21,19 +23,26 @@
 			font-size: 2vw;
 		}
 		p {
+			font-size: 1.2vw;
 		}
 	}
 
 	.body__1 {
+		.cardcolor {
+			background-color: var(--principale) !important;
+			.p-card-body {
+				color: var(--terziario);
+			}
+		}
 	}
 	.body__2 {
-		color: $Terziario;
-		background-color: $Principale;
+		color: var(--terziario);
+		background-color: var(--principale);
 	}
 
 	.body_cointainer_1 {
 	}
 	.body_cointainer_2 {
-		color: $Terziario;
+		color: var(--terziario);
 	}
 }

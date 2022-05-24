@@ -1,9 +1,10 @@
+import { store, RootState } from "../../store/store";
 import { PrimeIcons } from "primereact/api";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../store/slices/auth.slice";
-import { RootState, store } from "../../store/store";
-
+import * as auth from "../../store/slices/auth.slice";
+import * as ricette from "../../store/slices/ricette.slice";
+import "./Navbar.scss";
 export const Navbar = () => {
 	const navigate = useNavigate();
 
@@ -12,15 +13,6 @@ export const Navbar = () => {
 		(state: RootState) => state.auth.data || null,
 	);
 
-	const auth = (): void => {
-		if (token) {
-			store.dispatch(logout());
-		}
-		navigate("/auth/login");
-	};
-	const utenteSchermo = () => {
-		navigate("/utente");
-	};
 	return (
 		<nav className="_navbar">
 			<div>
@@ -31,14 +23,25 @@ export const Navbar = () => {
 
 			<div className="autenticazione_navbar">
 				{nome && (
-					<span className="nome_navbar" onClick={utenteSchermo}>
+					<span
+						className="nome_navbar"
+						onClick={() => {
+							navigate("/utente");
+							store.dispatch(ricette.stato("inattivo"));
+						}}
+					>
 						{" "}
 						{nome}{" "}
 					</span>
 				)}
 				<i
 					className={token ? PrimeIcons.SIGN_OUT : PrimeIcons.USER}
-					onClick={auth}
+					onClick={(): void => {
+						if (token) {
+							store.dispatch(auth.logout());
+						}
+						navigate("/auth/login");
+					}}
 				></i>
 			</div>
 		</nav>

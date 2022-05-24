@@ -1,6 +1,5 @@
-@import "../base/colors";
 .main_header {
-	width: 101vw;
+	width: 100%;
 	height: 100vh;
 	// background: linear-gradient(rgba(0, 0, 0, 0.596), rgba(0, 0, 0, 0.712)),
 	// 	url(../../../public/assets/img/principale.jpg);
@@ -12,7 +11,7 @@
 	flex-direction: column;
 	justify-content: center space-between;
 	align-items: center;
-	color: $Terziario;
+	color: var(--terziario);
 	margin: auto;
 	video {
 		position: absolute;
@@ -44,27 +43,13 @@
 			margin-bottom: 1.5vh;
 
 			span {
-				color: $Secondario;
+				color: var(--secondario);
 			}
 		}
 		div {
 			h3 {
-				color: $Grigio;
+				color: var(--grigio);
 			}
 		}
-	}
-}
-.main_ricette_bar {
-	display: flex;
-	align-items: center;
-	width: 100vw;
-	height: 10vh;
-	background-color: darken($color: $Secondario, $amount: 20);
-	justify-content: center;
-	input {
-		height: 5vh;
-		width: 30vw;
-		font-size: 1.5vw;
-		color: black;
 	}
 }

@@ -1,14 +1,14 @@
-export interface IAxiosUser {
+export interface IAxiosUtente {
 	name: string;
 	ui: string;
 }
-export interface IDataUser {
+export interface IDatiUtenti {
 	nome?: string;
 	email: string;
 	password: string;
 	confirma?: string;
 }
-export interface IDataForm {
+export interface IDatiForm {
 	img: File;
 	token: string;
 	titolo: string;
@@ -17,11 +17,11 @@ export interface IDataForm {
 }
 
 export interface IEliminareCard {
-	token: string;
+	token?: string;
 	_id: string;
 }
 export interface IModificareCard {
-	img: File;
+	img?: File;
 	titolo: string;
 	istruzioni: string;
 	_id: string;
@@ -49,24 +49,23 @@ export interface ICardsGet {
 		},
 	];
 }
-export interface ICardModificareReducer {
+export interface ICardModifica {
 	_id: string;
 	titolo: string;
 	istruzioni: string;
 }
-export interface IAuthData {
+export interface IAuthDati {
 	msg: string;
 	token: string;
 	nome: string;
 }
-export interface ICardComponent {
-	data: ICardsGet;
+export interface ICardProps {
+	immagine?: string;
+	titolo: string;
+	sottoTitolo?: string;
+	contenuto: JSX.Element | string;
+	className?: string;
+	id?: string;
 	utente: boolean;
-	array: boolean;
 }
-
-export interface ICardFormComponent {
-	data: IDataForm;
-	utente: boolean;
-	array: boolean;
-}
+export type TStati = "attivo" | "inattivo" | "registrato" | "non registrato";

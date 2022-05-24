@@ -1,6 +1,5 @@
-@import "../base/colors";
 .notfound {
-	background-color: $Principale;
+	background-color: var(--principale);
 	height: 100vh;
 	display: flex;
 	justify-content: center;

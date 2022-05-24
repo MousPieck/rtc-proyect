@@ -1,24 +1,15 @@
+import { store, RootState } from "../../../store/store";
 import { Button } from "primereact/button";
 import { Card as CardPrime, CardProps } from "primereact/card";
 import { memo } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ICardProps, IModificareCard } from "../../../interface";
 import {
 	eliminareRicette,
-	modificare,
+	modifica,
 } from "../../../store/slices/ricette.slice";
-import { RootState, store } from "../../../store/store";
-import { NewCard } from "../../NewCard/NewCard";
-import { useNavigate, Navigate } from "react-router-dom";
-
-interface ICardProps {
-	immagine?: string;
-	titolo: string;
-	sottoTitolo?: string;
-	contenuto: JSX.Element | string;
-	className?: string;
-	id?: string;
-	utente: boolean;
-}
+import "./Card.scss";
 
 const Card: React.FC<ICardProps> = ({
 	immagine,
@@ -32,7 +23,7 @@ const Card: React.FC<ICardProps> = ({
 	const token = useSelector((state: RootState) => state.auth.data.token);
 	const navigate = useNavigate();
 	const header = (e: CardProps) => <img src={immagine} />;
-	const eliminare = (_id: string) => {
+	const elimina = (_id: string) => {
 		const data = {
 			token,
 			_id,
@@ -43,25 +34,25 @@ const Card: React.FC<ICardProps> = ({
 		<>
 			{}
 			<Button
-				label="Modificare"
+				label="Modifica"
 				icon="pi pi-check"
 				className="p-button-info"
 				onClick={() => {
-					const data = {
+					const data: IModificareCard = {
 						_id: e.id as string,
 						titolo: e.title as string,
 						istruzioni: e.children as string,
 					};
 
-					store.dispatch(modificare(data));
+					store.dispatch(modifica(data));
 					navigate("/utente/newcard");
 				}}
 			/>
 			<Button
-				label="Eliminare"
+				label="Elimina"
 				icon="pi pi-times"
 				className="p-button-danger"
-				onClick={() => eliminare(e.id as string)}
+				onClick={() => elimina(e.id as string)}
 			/>
 		</>
 	);

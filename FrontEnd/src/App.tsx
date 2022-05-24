@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { NotFoundPage } from "./pages/NotFoundPage";
-import { PrincipalePage } from "./pages/PrincipalePage";
-import { AuthPage } from "./pages/AuthPage";
-import { UtentePage } from "./pages/UtentePage";
+import { AuthPage } from "./pages/AuthPage/AuthPage";
+import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
+import { PrincipalePage } from "./pages/PrincipalePage/PrincipalePage";
+import { UtentePage } from "./pages/UtentePage/UtentePage";
 import { PrivateRouters } from "./routers/PrivateRouters";
 import { PublicRouters } from "./routers/PublicRouters";
 

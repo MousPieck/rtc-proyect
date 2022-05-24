@@ -1,9 +1,8 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-
-import { Navbar } from "../components/NavBar/Navbar";
-
-import { BodyPrincipale } from "../components/BodyPrincipale/BodyPrincipale";
+import { BodyPrincipale } from "../../components/BodyPrincipale/BodyPrincipale";
+import { Navbar } from "../../components/NavBar/Navbar";
+import { RootState } from "../../store/store";
+import "./PrincipalePage.scss";
 
 export const PrincipalePage = () => {
 	const infoCards = useSelector(
