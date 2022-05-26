@@ -1,0 +1,32 @@
+.utente_main {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	width: 100vw;
+	position: relative;
+
+	.utente_navbar {
+		background-color: var(--principale);
+	}
+	.crea_button {
+		width: 8vw;
+		height: 8vh;
+		margin: 2.5vh auto;
+		display: block;
+		font-size: 1.5vw;
+		color: var(--secondario) !important;
+	}
+	.utente_cards_user {
+		display: flex;
+		flex-direction: column;
+		margin-top: 2vh;
+		align-items: center;
+		row-gap: 2.5vh;
+		width: 100%;
+		height: 100%;
+	}
+	.utente_container {
+		display: flex;
+		justify-content: space-between;
+	}
+}

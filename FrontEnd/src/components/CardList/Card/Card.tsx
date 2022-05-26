@@ -1,5 +1,6 @@
 import { store, RootState } from "../../../store/store";
 import { Button } from "primereact/button";
+import { Image } from "primereact/image";
 import { Card as CardPrime, CardProps } from "primereact/card";
 import { memo } from "react";
 import { useSelector } from "react-redux";
@@ -22,7 +23,7 @@ const Card: React.FC<ICardProps> = ({
 }) => {
 	const token = useSelector((state: RootState) => state.auth.data.token);
 	const navigate = useNavigate();
-	const header = (e: CardProps) => <img src={immagine} />;
+	const header = (e: CardProps) => <Image src={immagine} preview />;
 	const elimina = (_id: string) => {
 		const data = {
 			token,

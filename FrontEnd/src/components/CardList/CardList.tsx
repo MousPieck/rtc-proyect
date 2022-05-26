@@ -15,7 +15,7 @@ export const CardList = () => {
 
 	return (
 		<>
-			{utente.prodotti ? (
+			{utente.prodotti && (
 				<div className="utente_cards_user">
 					{utente.prodotti.map((dat) => (
 						<Card
@@ -29,8 +29,6 @@ export const CardList = () => {
 						/>
 					))}
 				</div>
-			) : (
-				<h1>nada</h1>
 			)}
 		</>
 	);

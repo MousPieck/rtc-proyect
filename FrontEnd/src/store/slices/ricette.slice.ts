@@ -5,7 +5,9 @@ import {
 	ICardsGet,
 	IDatiForm,
 	IEliminareCard,
+	IModifica,
 	IModificareCard,
+	IStato,
 	TStati,
 } from "../../interface";
 
@@ -30,7 +32,7 @@ export const ricetteCreate = createAsyncThunk(
 						},
 					},
 				);
-				store.dispatch(caricareRicetteId(token));
+
 				return risposta.data;
 			} catch (error) {
 				return rejectWithValue(error);
@@ -84,7 +86,7 @@ export const modificareRicette = createAsyncThunk(
 						},
 					},
 				);
-				store.dispatch(caricareRicetteId(token));
+
 				return risposta.data;
 			} catch (error) {
 				return rejectWithValue(error);
@@ -128,6 +130,21 @@ const ricetteSlice = createSlice({
 	name: "[RCT]",
 	initialState: initial,
 	reducers: {
+		modificare: (state, action: PayloadAction<IModifica>) => {
+			type TProdottoUtente = typeof state.utente.prodotti;
+
+			const prodotti = state.utente.prodotti.map((prodotto) => {
+				if (prodotto._id === action.payload._id) {
+					prodotto.immagine.img = action.payload.img;
+					prodotto.titolo = action.payload.titolo;
+					prodotto.istruzioni = action.payload.istruzioni;
+					return prodotto;
+				}
+			});
+			state.utente.prodotti = prodotti as TProdottoUtente;
+			state.utente.statoModifica = "attivo";
+			state.utente.modificare = {} as IModificareCard;
+		},
 		modifica: (state, action: PayloadAction<IModificareCard>) => {
 			state.utente.modificare = action.payload;
 		},
@@ -141,8 +158,12 @@ const ricetteSlice = createSlice({
 			state.stato = "attivo";
 			state.utente.prodotti = restanti as TProdotti;
 		},
-		stato: (state, action: PayloadAction<TStati>) => {
-			state.stato = action.payload;
+		stato: (state, action: PayloadAction<IStato>) => {
+			if (action.payload.statiOrdini === "principale") {
+				state.stato = action.payload.stato;
+			} else {
+				state.utente.statoModifica = action.payload.stato;
+			}
 		},
 	},
 	extraReducers: (builder) => {
@@ -155,9 +176,11 @@ const ricetteSlice = createSlice({
 					state.utente.modificare = {} as IModificareCard;
 				},
 			)
+			.addCase(ricetteCreate.fulfilled, (state) => {
+				state.utente.statoModifica = "attivo";
+			})
 			.addCase(modificareRicette.fulfilled, (state) => {
 				state.stato = "attivo";
-				state.utente.modificare = {} as IModificareCard;
 			})
 			.addCase(caricareRicette.fulfilled, (state, action) => {
 				state.stato = "attivo";
@@ -165,5 +188,5 @@ const ricetteSlice = createSlice({
 			});
 	},
 });
-export const { modifica, elimina, stato } = ricetteSlice.actions;
+export const { modifica, elimina, stato, modificare } = ricetteSlice.actions;
 export default ricetteSlice.reducer;

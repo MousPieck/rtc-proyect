@@ -1,4 +1,4 @@
-._navbar {
+.navbar_p {
 	display: flex;
 	align-items: center;
 	height: 12vh;
@@ -9,11 +9,8 @@
 	z-index: 2;
 	color: var(--terziario);
 	background-size: cover;
-	margin: auto;
-	padding: 3.5vh 7vw 3.5vh 7vw;
-	// box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
-	// 	rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
-	// 	rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+	padding: 3.5vh 7vw 3.5vh 7vw !important;
 
 	h2 {
 		cursor: pointer;
@@ -23,12 +20,14 @@
 			color: var(--secondario);
 		}
 	}
+
 	.autenticazione_navbar {
 		flex-direction: row;
 		display: flex;
 		justify-content: space-between;
 		.nome_navbar {
 			margin-right: 2vw;
+			font-size: 1vw;
 			cursor: pointer;
 		}
 		i {

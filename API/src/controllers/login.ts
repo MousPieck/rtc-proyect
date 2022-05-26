@@ -21,13 +21,13 @@ const loginPost = async (
       const pass: Boolean = bcrypt.compareSync(password, utent.password);
 
       if (pass) {
-        return res.json({
+        return res.status(200).json({
           msg: `login`,
           token: await generareJWT(utent._id),
           nome: utent.nome
         });
       } else {
-        return res.json({
+        return res.status(404).json({
           msgError: `La password non è corretta`
         });
       }
@@ -51,13 +51,13 @@ const signUpPost = async (
     const { email }: IUTente = req.body;
     const utent: IUTente = await Utente.findOne({ email });
     if (utent) {
-      res.json({
+      res.status(400).json({
         msgError: 'Il email esiste'
       });
       return;
     }
     await utente.save();
-    res.json({
+    res.status(200).json({
       msg: 'register'
     });
   } catch (error) {

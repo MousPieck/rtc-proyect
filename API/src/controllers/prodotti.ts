@@ -22,7 +22,7 @@ const prodottiGet = async (
       Prodotti.find().populate('autore', 'nome')
     ]);
 
-    res.json({
+    res.status(200).json({
       totale,
       prodotti
     });
@@ -44,7 +44,7 @@ const prodottiGetId = async (
       Prodotti.countDocuments({ autore: req.uid }),
       Prodotti.find({ autore: req.uid }).populate('autore', 'nome cognome')
     ]);
-    res.json({
+    res.status(200).json({
       totale,
       prodotti
     });
@@ -89,7 +89,7 @@ const prodottiPost = async (
       utente.save(),
       fs.unlink(path)
     ]);
-    res.json({
+    res.status(200).json({
       msg: `il utente (${utente.nome}) ora ha il prodotto: (${prodotti.titolo})`,
       prodottoID: prodotti._id
     });
@@ -130,7 +130,7 @@ const prodottiPut = async (
       Prodotti.findByIdAndUpdate(id, recette),
       fs.unlink(path)
     ]);
-    res.json({
+    res.status(200).json({
       msg: `Il prodotto: (${id} ha stato aggiornato con (${recette}))`
     });
   } catch (error) {
@@ -153,7 +153,7 @@ const prodottiDeleteId = async (
       Utente.findOneAndUpdate({ prodotti: id }, { $pull: { prodotti: id } })
     ]);
     await cloudinary.v2.uploader.destroy(prodotto.immagine.public_id);
-    res.json({
+    res.status(200).json({
       msg: `Il prodotto: (${id} ha stato eliminato`
     });
   } catch (error) {

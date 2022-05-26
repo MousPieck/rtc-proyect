@@ -7,10 +7,12 @@
 	flex-direction: row;
 	padding: 0.5rem;
 	.p-card-header {
-		img {
-			height: 100%;
-			width: 27vw;
-			border-radius: 0.5rem 1rem 1rem 0.5rem;
+		span {
+			img {
+				height: 46.5vh;
+				width: 30vw;
+				border-radius: 0.5rem 1rem 1rem 0.5rem;
+			}
 		}
 	}
 	.p-card-body {

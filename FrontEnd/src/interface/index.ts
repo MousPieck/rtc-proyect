@@ -1,3 +1,5 @@
+export type TStati = "attivo" | "inattivo" | "registrato" | "non registrato";
+type TStatiOrdini = "principale" | "modifica";
 export interface IAxiosUtente {
 	name: string;
 	ui: string;
@@ -8,12 +10,16 @@ export interface IDatiUtenti {
 	password: string;
 	confirma?: string;
 }
+
 export interface IDatiForm {
-	img: File;
+	img: File | string;
 	token: string;
 	titolo: string;
 	istruzioni: string;
 	_id?: string;
+}
+export interface IModifica extends IDatiForm {
+	img: string;
 }
 
 export interface IEliminareCard {
@@ -28,6 +34,7 @@ export interface IModificareCard {
 }
 
 export interface ICardsGet {
+	statoModifica: TStati;
 	modificare: IModificareCard;
 	totale: number;
 
@@ -68,4 +75,8 @@ export interface ICardProps {
 	id?: string;
 	utente: boolean;
 }
-export type TStati = "attivo" | "inattivo" | "registrato" | "non registrato";
+
+export interface IStato {
+	statiOrdini: TStatiOrdini;
+	stato: TStati;
+}

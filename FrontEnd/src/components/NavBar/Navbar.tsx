@@ -1,7 +1,8 @@
-import { store, RootState } from "../../store/store";
+import { RootState, store } from "../../store/store";
 import { PrimeIcons } from "primereact/api";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { IStato } from "../../interface";
 import * as auth from "../../store/slices/auth.slice";
 import * as ricette from "../../store/slices/ricette.slice";
 import "./Navbar.scss";
@@ -14,7 +15,7 @@ export const Navbar = () => {
 	);
 
 	return (
-		<nav className="_navbar">
+		<nav className="navbar_p">
 			<div>
 				<h2 onClick={() => navigate("/")}>
 					Ri<span>CE</span>tte
@@ -26,8 +27,12 @@ export const Navbar = () => {
 					<span
 						className="nome_navbar"
 						onClick={() => {
+							const stato: IStato = {
+								statiOrdini: "principale",
+								stato: "inattivo",
+							};
+							store.dispatch(ricette.stato(stato));
 							navigate("/utente");
-							store.dispatch(ricette.stato("inattivo"));
 						}}
 					>
 						{" "}

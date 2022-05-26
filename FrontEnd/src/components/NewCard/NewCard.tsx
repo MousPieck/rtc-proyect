@@ -1,5 +1,5 @@
 import { store, RootState } from "../../store/store";
-import { Form, Formik } from "formik";
+import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { IDatiForm } from "../../interface";
+import { IDatiForm, IModifica, IStato } from "../../interface";
 import * as ricette from "../../store/slices/ricette.slice";
 import "./NewCard.scss";
 
@@ -18,9 +18,16 @@ export const NewCard = () => {
 	const cardData = useSelector(
 		(state: RootState) => state.ricette.utente.modificare,
 	);
-	const stato = useSelector((state: RootState) => state.ricette.stato);
+	const stato = useSelector(
+		(state: RootState) => state.ricette.utente.statoModifica,
+	);
 	useEffect(() => {
-		if (stato === "attivo") {
+		if (stato && stato === "attivo") {
+			const stato: IStato = {
+				statiOrdini: "modifica",
+				stato: "inattivo",
+			};
+			store.dispatch(ricette.stato(stato));
 			navigate(-1);
 		}
 	}, [stato]);
@@ -49,7 +56,7 @@ export const NewCard = () => {
 			};
 		}
 	};
-	const [valoreIniziale, setValoreIniziale] = useState(valori);
+	const [valoreIniziale] = useState(valori);
 
 	return (
 		<>
@@ -71,6 +78,11 @@ export const NewCard = () => {
 							store.dispatch(
 								ricette.modificareRicette(dataModifica),
 							);
+							dataModifica.img = URL.createObjectURL(img);
+
+							store.dispatch(
+								ricette.modificare(dataModifica as IModifica),
+							);
 						} else {
 							const dataSalva: IDatiForm = {
 								token,
@@ -81,11 +93,6 @@ export const NewCard = () => {
 							store.dispatch(ricette.ricetteCreate(dataSalva));
 						}
 					}}
-					validationSchema={Yup.object({
-						img: Yup.mixed().required("il file è richiesto"),
-						titolo: Yup.string().required(),
-						istruzioni: Yup.string().required(),
-					})}
 				>
 					{(formik) => (
 						<Form className="form_cards">
@@ -112,6 +119,7 @@ export const NewCard = () => {
 								value={formik.values.istruzioni}
 								onChange={formik.handleChange}
 							/>
+
 							<div className="form_buttons">
 								<Button
 									label={
@@ -123,7 +131,6 @@ export const NewCard = () => {
 									className={
 										"p-button-raised p-button-success p-button-text"
 									}
-									disabled={!formik.isValid && formik.dirty}
 								/>
 
 								<Button
@@ -131,8 +138,12 @@ export const NewCard = () => {
 									type="button"
 									className="p-button-raised p-button-text p-button-plain"
 									onClick={() => {
-										store.dispatch(ricette.stato("attivo"));
-										// navigate("/utente");
+										const stato: IStato = {
+											statiOrdini: "principale",
+											stato: "attivo",
+										};
+										store.dispatch(ricette.stato(stato));
+										navigate(-1);
 									}}
 								/>
 							</div>
